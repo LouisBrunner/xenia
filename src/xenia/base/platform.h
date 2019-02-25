@@ -73,6 +73,7 @@
 
 #if XE_PLATFORM_MAC
 #include <libkern/OSByteOrder.h>
+#include <libkern/OSAtomic.h>
 #endif  // XE_PLATFORM_MAC
 
 #if XE_COMPILER_MSVC

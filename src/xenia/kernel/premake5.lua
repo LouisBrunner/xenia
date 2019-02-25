@@ -22,3 +22,8 @@ project("xenia-kernel")
   files({
     "debug_visualizers.natvis",
   })
+  
+  filter("platforms:macOS")
+    buildoptions({
+      "-Wno-error=deprecated-declarations",
+    })

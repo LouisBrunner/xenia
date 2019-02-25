@@ -30,3 +30,8 @@ project("xenia-cpu-backend-x64")
     project_root.."/third_party/gflags/src",
   })
   local_platform_files()
+
+  filter("platforms:macOS")
+    buildoptions({
+      "-Wno-error=deprecated-declarations",
+    })

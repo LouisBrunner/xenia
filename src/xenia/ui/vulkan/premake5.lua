@@ -63,3 +63,9 @@ project("xenia-ui-window-vulkan-demo")
       "GL",
       "vulkan",
     })
+
+  filter("platforms:macOS")
+    links({
+      "Cocoa.framework",
+      "QuartzCore.framework",
+    })

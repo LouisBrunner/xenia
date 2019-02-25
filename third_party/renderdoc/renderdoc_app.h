@@ -1,18 +1,18 @@
 /******************************************************************************
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2015-2016 Baldur Karlsson
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,7 +30,7 @@
 
 #if defined(WIN32)
 	#define RENDERDOC_CC __cdecl
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__APPLE__)
 	#define RENDERDOC_CC
 #else
 	#error "Unknown platform"
@@ -39,10 +39,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // RenderDoc capture options
-// 
+//
 
 typedef enum
 {
@@ -53,7 +53,7 @@ typedef enum
 	// 1 - The application can enable or disable vsync at will
 	// 0 - vsync is force disabled
 	eRENDERDOC_Option_AllowVSync = 0,
-	
+
 	// Allow the application to enable fullscreen
 	//
 	// Default - enabled
@@ -62,7 +62,7 @@ typedef enum
 	// 0 - fullscreen is force disabled
 	eRENDERDOC_Option_AllowFullscreen = 1,
 
-	// Record API debugging events and messages 
+	// Record API debugging events and messages
 	//
 	// Default - disabled
 	//
@@ -70,15 +70,15 @@ typedef enum
 	//     the capture logfile, which is matched up with events on replay
 	// 0 - no API debugging is forcibly enabled
 	eRENDERDOC_Option_DebugDeviceMode = 2,
-	
-	// Capture CPU callstacks for API events 
+
+	// Capture CPU callstacks for API events
 	//
 	// Default - disabled
 	//
 	// 1 - Enables capturing of callstacks
 	// 0 - no callstacks are captured
 	eRENDERDOC_Option_CaptureCallstacks = 3,
-	
+
 	// When capturing CPU callstacks, only capture them from drawcalls.
 	// This option does nothing without the above option being enabled
 	//
@@ -97,7 +97,7 @@ typedef enum
 	// Default - 0 seconds
 	//
 	eRENDERDOC_Option_DelayForDebugger = 5,
-	
+
 	// Verify any writes to mapped buffers, by checking the memory after the
 	// bounds of the returned pointer to detect any modification.
 	//
@@ -107,7 +107,7 @@ typedef enum
 	// 0 - No verification is performed, and overwriting bounds may cause
 	//     crashes or corruption in RenderDoc
 	eRENDERDOC_Option_VerifyMapWrites = 6,
-	
+
 	// Hooks any system API calls that create child processes, and injects
 	// RenderDoc into them recursively with the same options.
 	//
@@ -155,7 +155,7 @@ typedef enum
 	//     the period when a frame capture is in progress.
 	eRENDERDOC_Option_CaptureAllCmdLists = 10,
 
-	// Mute API debugging output when the debug device mode option is enabled 
+	// Mute API debugging output when the debug device mode option is enabled
 	//
 	// Default - enabled
 	//
@@ -432,10 +432,10 @@ typedef uint32_t (RENDERDOC_CC *pRENDERDOC_EndFrameCapture)(RENDERDOC_DevicePoin
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // RenderDoc API versions
-// 
+//
 
 // RenderDoc uses semantic versioning (http://semver.org/).
-// 
+//
 // MAJOR version is incremented when incompatible API changes happen.
 // MINOR version is incremented when functionality is added in a backwards-compatible manner.
 // PATCH version is incremented when backwards-compatible bug fixes happen.
@@ -497,9 +497,9 @@ typedef RENDERDOC_API_1_0_1 RENDERDOC_API_1_0_0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // RenderDoc API entry point
-// 
+//
 // This entry point can be obtained via GetProcAddress/dlsym if RenderDoc is available.
-// 
+//
 // The name is the same as the typedef - "RENDERDOC_GetAPI"
 //
 // This function is not thread safe, and should not be called on multiple threads at once.

@@ -26,6 +26,7 @@
 #include <netinet/ip.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#undef IPPROTO_UDP
 #endif
 
 namespace xe {
@@ -61,7 +62,7 @@ X_STATUS XSocket::Initialize(AddressFamily af, Type type, Protocol proto) {
 X_STATUS XSocket::Close() {
 #if XE_PLATFORM_WIN32
   int ret = closesocket(native_handle_);
-#elif XE_PLATFORM_LINUX
+#elif XE_PLATFORM_LINUX || XE_PLATFORM_MAC
   int ret = close(native_handle_);
 #endif
 
@@ -104,7 +105,7 @@ X_STATUS XSocket::IOControl(uint32_t cmd, uint8_t* arg_ptr) {
   }
 
   return X_STATUS_SUCCESS;
-#elif XE_PLATFORM_LINUX
+#elif XE_PLATFORM_LINUX || XE_PLATFORM_MAC
   return X_STATUS_UNSUCCESSFUL;
 #endif
 }

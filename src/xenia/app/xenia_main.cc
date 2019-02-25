@@ -153,7 +153,7 @@ int xenia_main(const std::vector<std::wstring>& args) {
       content_root = xe::filesystem::GetUserFolder();
 #if defined(XE_PLATFORM_WIN32)
       content_root = xe::join_paths(content_root, L"Xenia");
-#elif defined(XE_PLATFORM_LINUX)
+#elif defined(XE_PLATFORM_LINUX) || defined(XE_PLATFORM_MAC)
       content_root = xe::join_paths(content_root, L".xenia");
 #else
 #warning Unhandled platform for content root.

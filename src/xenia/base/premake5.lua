@@ -15,5 +15,9 @@ project("xenia-base")
   files({
     "debug_visualizers.natvis",
   })
+  filter("platforms:macOS")
+    buildoptions({
+      "-Wno-error=deprecated-declarations",
+    })
 
 include("testing")

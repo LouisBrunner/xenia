@@ -81,6 +81,12 @@ project("xenia-gpu-vulkan-trace-viewer")
       "vulkan",
     })
 
+  filter("platforms:macOS")
+    links({
+      "Cocoa.framework",
+      "QuartzCore.framework",
+    })
+
   filter("platforms:Windows")
     links({
       "xenia-apu-xaudio2",
@@ -149,6 +155,12 @@ project("xenia-gpu-vulkan-trace-dump")
       "X11-xcb",
       "GL",
       "vulkan",
+    })
+
+  filter("platforms:macOS")
+    links({
+      "Cocoa.framework",
+      "QuartzCore.framework",
     })
 
   filter("platforms:Windows")

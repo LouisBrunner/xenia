@@ -28,3 +28,7 @@ project("volk")
     defines({
       "VK_USE_PLATFORM_XCB_KHR",
     })
+  filter("platforms:macOS")
+    defines({
+      "VK_USE_PLATFORM_MACOS_MVK",
+    })

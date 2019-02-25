@@ -14,6 +14,8 @@
 #include "xenia/base/logging.h"
 #include "xenia/base/string.h"
 
+#include <iostream>
+
 namespace xe {
 
 bool has_console_attached() { return true; }

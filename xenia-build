@@ -348,7 +348,7 @@ def run_platform_premake(cc=None):
     """Runs all gyp configurations.
     """
     if sys.platform == 'darwin':
-        return run_premake('macosx', 'xcode4')
+        return run_premake('macosx', 'gmake')
     elif sys.platform == 'win32':
         vs_version = '2015'
         if 'VSVERSION' in os.environ:
@@ -613,9 +613,12 @@ class BaseBuildCommand(Command):
                 '/p:Configuration=' + args['config'],
                 ] + ([targets] if targets is not None else []) + pass_args, shell=False)
         elif sys.platform == 'darwin':
-            # TODO(benvanik): other platforms.
-            print('ERROR: don\'t know how to build on this platform.')
-            result = 1
+            result = subprocess.call([
+                'make',
+                '-j' if threads is 0 else '-j%d' % threads,
+                '-Cbuild/',
+                'config=%s_macos' % (args['config']),
+            ] + pass_args + args['target'], shell=False, env=dict(os.environ))
         else:
             result = subprocess.call([
                 'make',
@@ -1348,4 +1351,3 @@ class DevenvCommand(Command):
 
 if __name__ == '__main__':
     main()
-

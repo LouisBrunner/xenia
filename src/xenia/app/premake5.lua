@@ -74,6 +74,12 @@ project("xenia-app")
       "vulkan",
     })
 
+  filter("platforms:macOS")
+    links({
+      "Cocoa.framework",
+      "QuartzCore.framework",
+    })
+
   filter("platforms:Windows")
     links({
       "xenia-apu-xaudio2",

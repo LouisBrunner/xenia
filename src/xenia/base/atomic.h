@@ -55,6 +55,12 @@ inline bool atomic_cas(int64_t old_value, int64_t new_value,
       old_value, new_value, reinterpret_cast<volatile int64_t*>(value));
 }
 
+inline bool atomic_cas(int64_t old_value, int64_t new_value,
+                       volatile size_t* value) {
+  return OSAtomicCompareAndSwap64Barrier(
+      old_value, new_value, reinterpret_cast<volatile int64_t*>(value));
+}
+
 #elif XE_PLATFORM_WIN32
 
 inline int32_t atomic_inc(volatile int32_t* value) {

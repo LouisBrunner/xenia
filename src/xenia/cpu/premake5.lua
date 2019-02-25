@@ -20,6 +20,11 @@ project("xenia-cpu")
   local_platform_files("compiler/passes")
   local_platform_files("hir")
   local_platform_files("ppc")
+  
+  filter("platforms:macOS")
+    buildoptions({
+      "-Wno-error=deprecated-declarations",
+    })
 
 include("testing")
 include("ppc/testing")

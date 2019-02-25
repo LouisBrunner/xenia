@@ -73,7 +73,7 @@ bool VulkanProvider::Initialize() {
     return false;
   }
   size_t device_index =
-      std::min(available_devices.size(), FLAGS_vulkan_device_index);
+      std::min(available_devices.size(), static_cast<size_t>(FLAGS_vulkan_device_index));
   auto& device_info = available_devices[device_index];
 
   // Create the device.

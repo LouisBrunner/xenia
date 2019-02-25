@@ -90,6 +90,13 @@ bool VulkanContext::Initialize() {
 #else
 #error Unsupported GDK Backend on Linux.
 #endif  // GDK_WINDOWING_X11
+#elif XE_PLATFORM_MAC
+  VkMacOSSurfaceCreateInfoMVK create_info;
+  create_info.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK;
+  create_info.pNext = nullptr;
+  create_info.flags = 0;
+  create_info.pView = target_window_->native_handle();
+  status = vkCreateMacOSSurfaceMVK(*provider->instance(), &create_info, nullptr, &surface);
 #else
 #error Platform not yet implemented.
 #endif  // XE_PLATFORM_WIN32

@@ -25,6 +25,11 @@ project("xenia-gpu")
   -- local_platform_files("spirv")
   -- local_platform_files("spirv/passes")
 
+  filter("platforms:macOS")
+    buildoptions({
+      "-Wno-format",
+    })
+
 group("src")
 project("xenia-gpu-shader-compiler")
   uuid("ad76d3e4-4c62-439b-a0f6-f83fcf0e83c5")

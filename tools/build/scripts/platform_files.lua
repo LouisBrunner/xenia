@@ -15,7 +15,8 @@ local function match_platform_files(base_path, base_match)
   removefiles({base_path.."/".."**_linux.h", base_path.."/".."**_linux.cc"})
   removefiles({base_path.."/".."**_x11.h", base_path.."/".."**_x11.cc"})
   removefiles({base_path.."/".."**_gtk.h", base_path.."/".."**_gtk.cc"})
-  removefiles({base_path.."/".."**_mac.h", base_path.."/".."**_mac.cc"})
+  removefiles({base_path.."/".."**_mac.h", base_path.."/".."**_mac.cc", base_path.."/".."**_mac.mm"})
+  removefiles({base_path.."/".."**_macos.h", base_path.."/".."**_macos.cc", base_path.."/".."**_macos.mm"})
   removefiles({base_path.."/".."**_win.h", base_path.."/".."**_win.cc"})
   filter("platforms:Windows")
     files({
@@ -32,6 +33,15 @@ local function match_platform_files(base_path, base_match)
       base_path.."/"..base_match.."_x11.cc",
       base_path.."/"..base_match.."_gtk.h",
       base_path.."/"..base_match.."_gtk.cc",
+    })
+  filter("platforms:macOS")
+    files({
+      base_path.."/"..base_match.."_mac.h",
+      base_path.."/"..base_match.."_mac.cc",
+      base_path.."/"..base_match.."_mac.mm",
+      base_path.."/"..base_match.."_macos.h",
+      base_path.."/"..base_match.."_macos.cc",
+      base_path.."/"..base_match.."_macos.mm",
     })
   filter({})
 end

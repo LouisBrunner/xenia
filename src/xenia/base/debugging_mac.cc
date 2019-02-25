@@ -11,6 +11,9 @@
 
 #include <sys/sysctl.h>
 #include <unistd.h>
+#include <cstdarg>
+
+#include "xenia/base/string_buffer.h"
 
 namespace xe {
 namespace debugging {
@@ -23,6 +26,15 @@ bool IsDebuggerAttached() {
   size_t size = sizeof(info);
   sysctl(mib, sizeof(mib) / sizeof(*mib), &info, &size, nullptr, 0);
   return (info.kp_proc.p_flag & P_TRACED) != 0;
+}
+
+void DebugPrint(const char* fmt, ...) {
+  StringBuffer buff;
+
+  va_list va;
+  va_start(va, fmt);
+  buff.AppendVarargs(fmt, va);
+  va_end(va);
 }
 
 // TODO(benvanik): find a more reliable way.

@@ -60,6 +60,12 @@ project("xenia-hid-demo")
       "vulkan",
     })
 
+  filter("platforms:macOS")
+    links({
+      "Cocoa.framework",
+      "QuartzCore.framework",
+    })
+
   filter("platforms:Windows")
     links({
       "xenia-hid-winkey",

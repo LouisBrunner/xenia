@@ -7,7 +7,7 @@ objdir(build_obj)
 
 -- Define an ARCH variable
 -- Only use this to enable architecture-specific functionality.
-if os.is("linux") then
+if os.is("linux") or os.is("macosx") then
   ARCH = os.outputof("uname -p")
 else
   ARCH = "unknown"
@@ -141,6 +141,11 @@ filter({"platforms:Linux", "language:C++", "toolset:clang", "files:*.cc or *.cpp
     "-stdlib=libstdc++",
   })
 
+filter("platforms:macOS")
+  system("macosx")
+  toolset("clang")
+  flags({"C++14"})
+
 filter("platforms:Windows")
   system("windows")
   toolset("msc")
@@ -219,6 +224,8 @@ solution("xenia")
     platforms({"Linux"})
   elseif os.is("windows") then
     platforms({"Windows"})
+  elseif os.is("macosx") then
+    platforms({"macOS"})
   end
   configurations({"Checked", "Debug", "Release"})
 
